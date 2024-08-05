@@ -6,7 +6,7 @@ import numpy as np
 import scanpy as sc
 import anndata
 from sklearn.decomposition import PCA
-from noise_model import Noise_Model
+from .noise_model import Noise_Model
 
 
 ####################################################################################################

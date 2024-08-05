@@ -5,7 +5,7 @@ This repository is dedicated to the inference of lobular coordinates from single
 [*A sexually dimorphic hepatic cycle of very low density lipoprotein uptake and assembly*](https://www.biorxiv.org/content/10.1101/2023.10.07.561324v2.abstract).
 
 ## Approaches
-1. **Maximum Likelihood Estimation (MLE)**: Leveraging PyTorch, this method focuses on optimizing the likelihood function directly.
+1. **Maximum Likelihood Estimation (MLE)**: Leveraging PyTorch, this method focuses on optimizing the likelihood function directly. METHOD USED IN THE ARTICLE
 2. **Stochastic Variational Inference (SVI)**: Utilizing the NumPyro library, which is built on Jax, SVI offers a scalable Bayesian inference method.
 3. **Markov Chain Monte Carlo (MCMC) with NUTS Algorithm**: This approach, also using NumPyro, employs the No-U-Turn Sampler (NUTS), an advanced MCMC method.
 

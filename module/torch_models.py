@@ -2,6 +2,7 @@ import numpy as np
 import torch
 from torch import tensor as tt
 from collections import namedtuple
+from tqdm import tqdm
 
 
 def training(data, x_unif, coef_pau, n_c, dm, clamp, n_iter, batch_size, dev):
@@ -74,7 +75,8 @@ def training(data, x_unif, coef_pau, n_c, dm, clamp, n_iter, batch_size, dev):
     optimizer = torch.optim.Adam([x, a0, a1, disp], lr=0.001)
     batch_size = NC
     # Optimize the latent variables to minimize the loss
-    for step in range(n_iter):
+    # for step in range(n_iter):
+    for step in tqdm(range(n_iter), desc="Training progress"):
         optimizer.zero_grad()  # zero the gradients
         output = loss_clamp_batch(x, a0, a1, disp, batch_size, MP, DATA)
         output.backward()  # compute the gradients
@@ -94,6 +96,7 @@ def training_gene_selection(
 ):
     """
     This function is used to train the model on the data.
+
     """
     NC, NG = DATA.shape
     NS = dm.shape[1]
