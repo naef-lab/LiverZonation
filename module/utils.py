@@ -144,6 +144,7 @@ def shift_samples_per_mouse(x, a0, a1, sample_id, central, data, layer="f_cg"):
     are x values, and different mice look completely shifted to one another.
     As this is not desirable, we alligned our sumple such as the are aligned
     on the central (defualt) side.
+    BE CAREFUL: Make sure that the data layer IS NOT sparse.
     """
     xs = []
     # computing the individual shifts
@@ -167,6 +168,12 @@ def shift_parameters(x, a0, a1, shift, sample_id):
     accordingly to the shift that were found beforehand.
     In particular it shifts the x, and trasform the intercept a0,
     accordingly to the shift.
+    Inputs:
+    x: np.array, the x values
+    a0: np.array, the intercepts
+    a1: np.array, the slopes
+    shift: np.array, the shifts
+    sample_id: np.array, the sample identifiers
     """
 
     x_scaled = np.zeros(len(x), dtype=float)
