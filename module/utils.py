@@ -97,7 +97,7 @@ def do_pca(data, pc=0):
     return x_unif
 
 
-def fit_coeff(data, x_unif, genes):
+def fit_coeff(data, x_unif, genes, layer="n_cg"):
     """
     This function is used to fit the coefficients a0 and a1 of the model
     using a negative binomial regression.
@@ -110,7 +110,7 @@ def fit_coeff(data, x_unif, genes):
     logN = np.log(data.obs["n_c"].values)
 
     for gi, g in enumerate(genes):
-        yy = data[:, [g]].layers["n_cg"].toarray().squeeze()
+        yy = data[:, [g]].layers[layer].toarray().squeeze()
         model_n = Noise_Model(yy, D, logN, noise)
 
         iterations = 50
@@ -137,7 +137,7 @@ def save_parameters(x, a0, a1, sample_names_uniq, name, data):
     df_x.to_csv("coeff_values/" + name + "_x.txt", sep=",")
 
 
-def shift_samples_per_mouse(x, a0, a1, sample_id, central, data):
+def shift_samples_per_mouse(x, a0, a1, sample_id, central, data, layer="f_cg"):
     """
     This function is used to shift the samples per mouse.
     This is done because diferent sample (mice) have different
@@ -149,7 +149,7 @@ def shift_samples_per_mouse(x, a0, a1, sample_id, central, data):
     # computing the individual shifts
     for s in np.unique(sample_id):
         idx = sample_id == s
-        central_score = data[idx, central].layers["f_cg"].sum(1)
+        central_score = data[idx, central].layers[layer].sum(1)
         xx = x[idx]
         rc = central_score.argsort().argsort() / idx.sum()
         col = np.logical_and(rc > 0.9, rc < 0.99)
