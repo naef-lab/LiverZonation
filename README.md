@@ -12,6 +12,7 @@ This repository is dedicated to the inference of lobular coordinates from single
 ## Additional code
 1. `other_methods/numpyro_SVI.ipynb`: Utilizing the NumPyro library, which is built on JAX, SVI offers a scalable Bayesian inference method, approximating posterior distributions of latent variables.
 2. `other_methods/numpyro_MCMC.ipynb`: This approach, also using NumPyro, employs the No-U-Turn Sampler (NUTS), to sample the posterior distributions of all latent variables.
+3. `MLE_droin.ipynb`: Same method applyed to another dataset from Droin et al. [*Space-time logic of liver gene expression at sub-lobular scale*](https://www.nature.com/articles/s42255-020-00323-1).
 
 ## Configuration
 The `config.py` file is central to the setup, containing key hyperparameters such as:
