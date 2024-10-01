@@ -231,33 +231,5 @@ def make_design_matrix_numpy(sample_id):
 
 
 # functions use for plotting results
-
-# def f_norm(x, a0_pyro, a1_pyro, DM):
-#     y = x[:, None] * a1_pyro[None, :]
-#     y += np.matmul(DM[:, :], a0_pyro)
-#     return np.exp(y)
-
-
-# def f_single(x, a0_pyro, a1_pyro, DM):
-#     y = x[:, None] * np.matmul(DM[:, :], a1_pyro)
-#     y += np.matmul(DM[:, :], a0_pyro)
-#     return np.exp(y)
-
-
-# def f_norm_a0_mean(x, a0_pyro, a1_pyro):
-#     y = x[:, None] * a1_pyro[None, :] + a0_pyro.mean(axis=0)
-#     return np.exp(y)
-
-
-# def split_vector_into_subsets(vector, num_subsets):
-#     avg = len(vector) // num_subsets
-#     remainder = len(vector) % num_subsets
-#     subsets = []
-#     i = 0
-#     for _ in range(num_subsets):
-#         subset_size = avg + (1 if remainder > 0 else 0)
-#         subset = vector[i : i + subset_size]
-#         subsets.append(subset)
-#         i += subset_size
-#         remainder -= 1
-#     return subsets
+def exp_fun(x, a0, a1):
+    return np.exp(a0[None, :] + a1[None, :] * x[:, None])
