@@ -25,8 +25,8 @@ def training(data, x_unif, coef_pau, n_c, dm, clamp, n_iter, batch_size, dev):
     Returns:
     tuple: A tuple containing the final values of the model's parameters and the loss values:
         - x_final (numpy.ndarray): Final optimized values of x.
-        - a0_final (numpy.ndarray): Final optimized values of a0, one of the PAU coefficients.
-        - a1_final (numpy.ndarray): Final optimized values of a1, another PAU coefficient.
+        - a0_final (numpy.ndarray): Final optimized values of a0, the intercepts
+        - a1_final (numpy.ndarray): Final optimized values of a1, the slopes.
         - disp_final (numpy.ndarray): Final dispersion values after optimization.
         - losses (list): List of loss values recorded at each training iteration.
 
@@ -160,7 +160,14 @@ def loss_clamp_batch(x, a0, a1, disp, batch_size, mp, DATA):
     a0 is sample specific, disp and a1 only gene specific.
     If you want to use all datapoints, set batch_size = DATA.shape[0]
     The 'clamp' gene slope coefficient a1 is set to the fix value (1).
-
+    Parameters:
+    x (array-like): The latent variable x.
+    a0 (array-like): The intercepts a0.
+    a1 (array-like): The slopes a1.
+    disp (array-like): The dispersion values.
+    batch_size (int): The size of the batch for training.
+    mp (dict): A dictionary containing the mask, fix, and other parameters.
+    DATA (array-like): The count matrix used for training.
     """
     NC = DATA.shape[0]
     # killing the gradient
@@ -240,28 +247,6 @@ def loss_simple(x, a0, a1, disp, mp, DATA):
         total_count=r, probs=p, validate_args=None
     )
     return -NB.log_prob(DATA[:, :]).sum()
-
-
-# def loss_simple_batch(x, a0, a1, disp, batch_size, mp, DATA):
-
-#     NC = DATA.shape[0]
-#     # killing the gradient
-#     a1_ = torch.matmul(mp.mask, a1)
-#     a1_[mp.clamp] = mp.fix
-
-#     idx = torch.randperm(DATA.shape[0])[:batch_size]
-#     y = x[idx, None] * a1_[None, :] + a0[None, :] + mp.log_n_UMI[idx, None]
-#     alpha = torch.exp(disp)
-
-#     y = mp.cutoff * torch.tanh(y / mp.cutoff)
-#     lmbda = torch.exp(y)
-
-#     r = 1 / alpha
-#     p = alpha * lmbda / (1 + alpha * lmbda)
-#     NB = torch.distributions.NegativeBinomial(
-#         total_count=r, probs=p, validate_args=None
-#     )
-#     return -NB.log_prob(DATA[idx, :]).sum() * (NC / batch_size)
 
 
 def loss_gene_selection(x, a0, a1, disp, batch_size, mp, DATA):

@@ -2,7 +2,7 @@
 
 ## Overview
 This repository is dedicated to the inference of lobular coordinates from single-cell RNA sequencing (scRNA-seq) data. Our focus is on implementing and comparing three distinct computational approaches to address this challenge. This repository contains the code used in the study:
-[*A sexually dimorphic hepatic cycle of very low density lipoprotein uptake and assembly*](https://www.biorxiv.org/content/10.1101/2023.10.07.561324v2.abstract).
+[*A sexually dimorphic hepatic cycle of periportal VLDL generation and subsequent pericentral VLDLR-mediated re-uptake*](https://www.nature.com/articles/s41467-024-52751-2).
 
 ## Code for the article
 1. `MLE.ipynb` it's the notebook that assigns the lobular coordinate to cells based on their transcriptome. Such coordinate is present in several figures of the paper.
